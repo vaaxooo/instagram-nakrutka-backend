@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth.middlewares')
 
 const { login, register, me, refreshToken, changePassword } = require('../services/account.services')
 const { getOrdersList, createOrder, cancelOrder } = require('../services/order.services')
-const { createDeposit, getDepositsList, getDeposit } = require('../services/deposit.services')
+const { createDeposit, getDepositsList, getDeposit, getExchangeRates } = require('../services/deposit.services')
 const { getReferrals } = require('../services/referral.services')
 const { getWithdrawalsList, createWithdrawal } = require('../services/withdrawal.services')
 
@@ -29,6 +29,7 @@ service.get('/orders', auth, getOrdersList)
 service.get('/deposits', auth, getDepositsList)
 service.post('/deposits', auth, createDeposit)
 service.get('/deposits/:hash', auth, getDeposit)
+service.get('/get-exchange-rates', auth, getExchangeRates)
 
 // referral routes
 service.get('/referrals', auth, getReferrals)

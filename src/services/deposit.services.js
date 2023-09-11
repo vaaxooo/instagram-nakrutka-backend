@@ -1,3 +1,4 @@
+const axios = require('axios');
 const Logger = require('../../utils/Logger')
 const Validator = require('validatorjs');
 const Deposits = require('../models/deposits.models');
@@ -89,6 +90,31 @@ module.exports = {
         } catch (error) {
             Logger.error(error);
             return res.send({ success: false, message: 'Internal server error'});
+        }
+    },
+
+
+    /**
+     * The function `getExchangeRates` makes an asynchronous HTTP GET request to the Binance API to
+     * retrieve the current exchange rate for BTC to USDT and returns the response.
+     * @param req - The `req` parameter is the request object that contains information about the incoming
+     * HTTP request, such as headers, query parameters, and request body. It is used to retrieve
+     * information from the client and pass it to the server.
+     * @param res - The `res` parameter is the response object that will be sent back to the client. It is
+     * used to send the response data or error message back to the client.
+     * @returns a response object. If the API call is successful, it will return a response with a success
+     * status, a message indicating the exchange rates, and the data containing the exchange rates. If
+     * there is an error, it will return a response with a success status of false and a message indicating
+     * the error.
+     */
+    async getExchangeRates(req, res) {
+        try {
+            const { data: data } = await axios.get('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+            return res.send({ success: true, message: 'Exchange rates', data: data });
+        } catch (error) {
+            console.log(error);
+            Logger.error(error);
+            return res.send({ success: false, message: 'Error getting exchange rates' });
         }
     }
 
