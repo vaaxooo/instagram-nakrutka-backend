@@ -38,7 +38,11 @@ module.exports = {
             if (validator.fails()) {
                 return res.send({ success: false, message: 'Invalid deposit data', errors: validator.errors.all() });
             }
+
             const { amount, payment_method } = req.body;
+            if(+amount < 5) {
+                return res.send({ success: false, message: 'Minimum deposit amount is 5 $' });
+            }
             const deposit = await Deposits.create({
                 amount,
                 payment_method,
