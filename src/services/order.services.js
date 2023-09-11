@@ -1,5 +1,5 @@
 const axios = require('axios')
-const Logger = require('../../utils/logger')
+const Logger = require('../../utils/Logger')
 const Validator = require('validatorjs')
 const Sequelize = require('sequelize')
 
